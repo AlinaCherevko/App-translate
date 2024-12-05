@@ -22,7 +22,7 @@ const authPersistConfig = {
 const wordsPersistConfig = {
   key: "words",
   storage,
-  whitelist: ["results", "categories"],
+  whitelist: ["recommendedWords.results", "categories"],
 };
 
 const rootReducer = combineReducers({

@@ -7,13 +7,20 @@ export type IconProps = {
   stroke?: string;
   width?: number | string;
   height?: number | string;
+  disabled?: boolean;
 };
 
-export const Icon: FC<IconProps> = ({ id, fill, stroke, width, height }) => {
+export const Icon: FC<IconProps> = ({
+  id,
+  fill,
+  stroke,
+  width,
+  height,
+  disabled,
+}) => {
   return (
     <svg
-      className="svg"
-      fill={fill}
+      fill={disabled ? "rgba(18, 20, 23, 0.1)" : fill}
       stroke={stroke}
       width={width}
       height={height}

@@ -6,18 +6,27 @@ import {
   getOwnWords,
   getWordsStatistics,
   getUsersTasks,
+  addWordToDictionary,
 } from "./wordsOperations";
 
 const initialState: IWordsState = {
-  results: [],
-  own: null,
+  recommendedWords: {
+    results: [],
+    totalPages: 0,
+    page: 1,
+    perPage: 7,
+  },
+
+  own: {
+    results: [],
+    totalPages: 0,
+    page: 1,
+    perPage: 7,
+  },
   categories: [],
   words: [],
   error: "",
   isLoading: false,
-  totalPages: 0,
-  page: 1,
-  perPage: 10,
   totalCount: 0,
 };
 
@@ -35,7 +44,7 @@ const isRejected = (
 };
 
 export const wordsSlice = createSlice({
-  name: "books",
+  name: "word",
   initialState,
 
   reducers: {},
@@ -44,8 +53,9 @@ export const wordsSlice = createSlice({
     builder.addCase(getAllWords.pending, isPending);
     builder.addCase(getAllWords.rejected, isRejected);
     builder.addCase(getAllWords.fulfilled, (state, { payload }) => {
-      state.results = payload.results;
-      state.totalPages = payload.totalPages;
+      console.log(payload);
+      state.recommendedWords.results = payload.results;
+      state.recommendedWords.totalPages = payload.totalPages;
       state.error = "";
       state.isLoading = false;
     });
@@ -61,7 +71,8 @@ export const wordsSlice = createSlice({
     builder.addCase(getOwnWords.pending, isPending);
     builder.addCase(getOwnWords.rejected, isRejected);
     builder.addCase(getOwnWords.fulfilled, (state, { payload }) => {
-      state.own = payload;
+      state.own.results = payload.results;
+      state.own.totalPages = payload.totalPages;
       state.error = "";
       state.isLoading = false;
     });
@@ -78,6 +89,14 @@ export const wordsSlice = createSlice({
     builder.addCase(getUsersTasks.rejected, isRejected);
     builder.addCase(getUsersTasks.fulfilled, (state, { payload }) => {
       state.words = payload.words;
+      state.error = "";
+      state.isLoading = false;
+    });
+    //addWordToDictionary
+    builder.addCase(addWordToDictionary.pending, isPending);
+    builder.addCase(addWordToDictionary.rejected, isRejected);
+    builder.addCase(addWordToDictionary.fulfilled, (state, { payload }) => {
+      state.own.results.push(payload);
       state.error = "";
       state.isLoading = false;
     });

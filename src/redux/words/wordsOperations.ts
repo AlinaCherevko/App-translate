@@ -3,15 +3,19 @@ import { instance } from "../auth/authOperation";
 import {
   IAllWordsResult,
   IStatistic,
-  IWordsCategories,
+  WordCategory,
   IWordsTasks,
+  IRecommendedWords,
+  IGetAllWordsReq,
+  AddWordToDictionaryReq,
+  IWordsResult,
 } from "./types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../constants/apiPath";
 
 //getWordsCategories
 export const getWordsCategories = createAsyncThunk<
-  IWordsCategories[],
+  WordCategory[],
   undefined,
   { rejectValue: string }
 >("words/getWordsCategories", async (_, thunkAPI) => {
@@ -28,37 +32,47 @@ export const getWordsCategories = createAsyncThunk<
 
 //getAllWords
 export const getAllWords = createAsyncThunk<
-  IAllWordsResult,
-  undefined,
+  IRecommendedWords,
+  IGetAllWordsReq,
   { rejectValue: string }
->("words/getAllWords", async (_, thunkAPI) => {
-  try {
-    const { data } = await instance.get(api.words.getAllWords);
-    return data;
-  } catch (error: unknown) {
-    if (error instanceof AxiosError && error.response) {
-      const errorMessage = error.response.data.message;
-      return thunkAPI.rejectWithValue(errorMessage);
+>(
+  "words/getAllWords",
+  async ({ keyword, category, page, isIrregular }, thunkAPI) => {
+    try {
+      const { data } = await instance.get(
+        `${api.words.getAllWords}?keyword=${keyword}&category=${category}&page=${page}&isIrregular=${isIrregular}&limit=7`
+      );
+      return data;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError && error.response) {
+        const errorMessage = error.response.data.message;
+        return thunkAPI.rejectWithValue(errorMessage);
+      }
     }
   }
-});
+);
 
 //getOwnWords
 export const getOwnWords = createAsyncThunk<
   IAllWordsResult,
-  undefined,
+  IGetAllWordsReq,
   { rejectValue: string }
->("words/getOwnWords", async (_, thunkAPI) => {
-  try {
-    const { data } = await instance.get(api.words.getUsersWords);
-    return data;
-  } catch (error: unknown) {
-    if (error instanceof AxiosError && error.response) {
-      const errorMessage = error.response.data.message;
-      return thunkAPI.rejectWithValue(errorMessage);
+>(
+  "words/getOwnWords",
+  async ({ keyword, category, page, isIrregular }, thunkAPI) => {
+    try {
+      const { data } = await instance.get(
+        `${api.words.getUsersWords}?keyword=${keyword}&category=${category}&page=${page}&isIrregular=${isIrregular}&limit=7`
+      );
+      return data;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError && error.response) {
+        const errorMessage = error.response.data.message;
+        return thunkAPI.rejectWithValue(errorMessage);
+      }
     }
   }
-});
+);
 
 // getWordsStatistics
 export const getWordsStatistics = createAsyncThunk<
@@ -85,6 +99,23 @@ export const getUsersTasks = createAsyncThunk<
 >("words/getUsersTasks", async (_, thunkAPI) => {
   try {
     const { data } = await instance.get(api.words.getUsersTasks);
+    return data;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError && error.response) {
+      const errorMessage = error.response.data.message;
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+});
+
+//addWordToDictionary
+export const addWordToDictionary = createAsyncThunk<
+  IWordsResult,
+  AddWordToDictionaryReq,
+  { rejectValue: string }
+>("words/addWordToDictionary", async ({ id }, thunkAPI) => {
+  try {
+    const { data } = await instance.post(api.words.addNewUsersWord(id));
     return data;
   } catch (error: unknown) {
     if (error instanceof AxiosError && error.response) {

@@ -7,22 +7,22 @@ export const useSelectStyles = (): StylesConfig => {
   return {
     placeholder: (provided) => ({
       ...provided,
-      color: "#f9f9f9",
+      color: "#262626",
       fontWeight: "500",
-      fontSize: isMobile ? "12px" : "14px",
+      fontSize: "16px",
       lineHeight: isMobile ? "18px" : "20px",
     }),
     control: (provided) => ({
       ...provided,
-      backgroundColor: "#1F1F1F",
-      border: "1px solid rgba(249, 249, 249, 0.2)",
+      backgroundColor: "transparent",
+      border: "1px solid rgba(18, 20, 23, 0.1)",
 
-      width: isMobile ? "120px" : "153px",
-      height: isMobile ? "40px" : "40px",
+      width: isMobile ? "full" : "164px",
+      height: "48px",
       boxShadow: "none",
       borderRadius: "12px",
       "&:hover": {
-        border: "1px solid #f9f9f9",
+        border: "1px solid #85AA9F",
       },
     }),
     singleValue: (provided) => ({
@@ -30,11 +30,11 @@ export const useSelectStyles = (): StylesConfig => {
       fontSize: isMobile ? "12px" : "14px",
       lineHeight: isMobile ? "18px" : "20px",
       fontWeight: "400",
-      color: "#f9f9f9", // Колір обраного значення
+      color: "#262626", // Колір обраного значення
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
-      color: "rgba(249, 249, 249, 0.2)", // Колір стрілочки
+      color: "#262626", // Колір стрілочки
     }),
     menu: (provided) => ({
       ...provided,
@@ -48,10 +48,10 @@ export const useSelectStyles = (): StylesConfig => {
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: "#1F1F1F",
-      color: state.isSelected ? "#f9f9f9" : "#686868",
+      backgroundColor: "#f9f9f9",
+      color: state.isSelected ? "#85AA9F" : "#686868",
       "&:hover": {
-        color: "#f9f9f9",
+        color: "#686868",
       },
     }),
   };

@@ -43,7 +43,7 @@ export default {
       },
       fontSize: {
         tiny: ["16px", "1.5"],
-        small: ["18", "1.33"],
+        small: ["18px", "1.33"],
         lightSmall: ["12px", "1.33"],
         lightMedium: ["22px", "1.33"],
         medium: ["32px", "1"],

@@ -28,6 +28,7 @@ export const UserBar: FC = () => {
           width={16}
           height={16}
           onClick={onLogoutClick}
+          fill="#85AA9F"
         />
       </div>
       <div className="desktop:hidden">

@@ -22,3 +22,6 @@ export { WordsTable } from "./WordsTable/WordsTable.tsx";
 export { Loader } from "./Loader/Loader.tsx";
 export { RestrictedRoute } from "./RestrictedRoute/RestrictedRoute.tsx";
 export { PrivateRoute } from "./PrivateRoute/PrivateRoute.tsx";
+export { WordTableRow } from "./WordTableRow/WordTableRow.tsx";
+export { PopupEl } from "./Popup/Popup.tsx";
+export { RadioGroupEl } from "./RadioGroup/RadioGroup.tsx";

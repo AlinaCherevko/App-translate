@@ -9,7 +9,7 @@ export type ISelect = {
   options: Option[];
 };
 
-export const SelectEl: FC<ISelect> = ({ onChange, options }) => {
+export const SelectEl: FC<ISelect> = ({ options, onChange }) => {
   const onSelectChange = (newValue: unknown) => {
     if (newValue && typeof newValue === "object" && "value" in newValue) {
       const selectedOption = newValue as Option;

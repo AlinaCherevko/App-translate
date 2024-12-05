@@ -2,13 +2,14 @@ import { FC } from "react";
 import { Icon } from "../index";
 
 interface MenuProps {
-  onClick: () => void;
-  id: string;
+  onClick?: () => void;
+  id?: string;
   fill?: string;
   stroke?: string;
   width?: number;
   height?: number;
   text?: string;
+  disabled?: boolean;
 }
 
 export const BtnIcon: FC<MenuProps> = ({
@@ -19,15 +20,25 @@ export const BtnIcon: FC<MenuProps> = ({
   stroke,
   fill,
   text,
+  disabled,
 }) => {
   return (
     <button
-      className="flex gap-2  items-center bg-transparent"
+      className="flex gap-2  items-center bg-transparent hover:text-dark-green-color"
       type="button"
       onClick={onClick}
     >
       {text}
-      <Icon id={id} stroke={stroke} fill={fill} width={width} height={height} />
+      {id && (
+        <Icon
+          disabled={disabled}
+          id={id}
+          stroke={stroke}
+          fill={fill}
+          width={width}
+          height={height}
+        />
+      )}
     </button>
   );
 };

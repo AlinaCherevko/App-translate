@@ -10,13 +10,13 @@ const RecommendPage: FC = () => {
   const recommendedWords = useSelector(selector.selectResults);
   const totalPages = useSelector(selector.selectTotalPages);
 
+  const [isVerbRegular, setIsVerbRegular] = useState<boolean>(true);
   const [category, setCategory] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
   const [page, setPage] = useState<number>(() => {
     const res = localStorage.getItem("page");
     return res ? +res : 1;
   });
-  const [isVerbRegular, setIsVerbRegular] = useState<boolean>(true);
   const currentPage = "RecommendPage";
 
   useEffect(() => {
@@ -27,7 +27,11 @@ const RecommendPage: FC = () => {
   return (
     <section className="bg-secondary-white pt-8 pb-12 tablet:pt-20">
       <div className="wrapper">
-        <Dashboard setOption={setCategory} setKeyword={setKeyword} />
+        <Dashboard
+          setOption={setCategory}
+          setKeyword={setKeyword}
+          option={category}
+        />
         <WordsTable results={recommendedWords} currentPage={currentPage} />
         <WordsPagination
           setPage={setPage}

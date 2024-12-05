@@ -4,10 +4,15 @@ import { FC } from "react";
 
 export const RadioGroupEl: FC = () => {
   return (
-    <RadioGroup defaultValue="Regular" colorPalette="teal" size="sm">
+    <RadioGroup
+      variant="subtle"
+      defaultValue="Regular"
+      colorPalette="accent"
+      size="sm"
+    >
       <HStack gap="6">
         <Radio value="Regular">Regular</Radio>
-        <Radio value="Irregular">Irregular 2</Radio>
+        <Radio value="Irregular">Irregular</Radio>
       </HStack>
     </RadioGroup>
   );

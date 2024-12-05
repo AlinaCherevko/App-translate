@@ -10,7 +10,7 @@ const RecommendPage: FC = () => {
   const recommendedWords = useSelector(selector.selectResults);
   const totalPages = useSelector(selector.selectTotalPages);
 
-  const [option, SetOption] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
   const [page, setPage] = useState<number>(() => {
     const res = localStorage.getItem("page");
@@ -20,14 +20,14 @@ const RecommendPage: FC = () => {
   const currentPage = "RecommendPage";
 
   useEffect(() => {
-    dispatch(getAllWords({ keyword, category: option, page, isIrregular: "" }));
-  }, [dispatch, keyword, option, page]);
+    dispatch(getAllWords({ keyword, category, page, isIrregular: "" }));
+  }, [dispatch, keyword, category, page]);
 
   console.log(recommendedWords);
   return (
     <section className="bg-secondary-white pt-8 pb-12 tablet:pt-20">
       <div className="wrapper">
-        <Dashboard setOption={SetOption} setKeyword={setKeyword} />
+        <Dashboard setOption={setCategory} setKeyword={setKeyword} />
         <WordsTable results={recommendedWords} currentPage={currentPage} />
         <WordsPagination
           setPage={setPage}

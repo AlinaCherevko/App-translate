@@ -6,10 +6,11 @@ export type Option = { value: string; label: string };
 
 export type ISelect = {
   onChange: (value: string) => void;
+  setPage: (value: number) => void;
   options: Option[];
 };
 
-export const SelectEl: FC<ISelect> = ({ options, onChange }) => {
+export const SelectEl: FC<ISelect> = ({ options, onChange, setPage }) => {
   const onSelectChange = (newValue: unknown) => {
     if (newValue && typeof newValue === "object" && "value" in newValue) {
       const selectedOption = newValue as Option;
@@ -19,6 +20,7 @@ export const SelectEl: FC<ISelect> = ({ options, onChange }) => {
       } else {
         onChange(selectedOption.value);
       }
+      setPage(1);
     }
   };
 

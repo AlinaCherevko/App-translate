@@ -4,15 +4,17 @@ import {
   FieldError,
   FieldValues,
 } from "react-hook-form";
+import { Style } from "../Button/Button";
 
 export type InputProps<T extends FieldValues> = {
-  placeholder: string;
+  placeholder?: string;
   label: Path<T>;
   register: UseFormRegister<T>;
   error: FieldError | undefined;
   success?: boolean | string | number;
   describe?: string;
   type?: string;
+  style: Style;
 };
 
 export const FormInput = <T extends FieldValues>({
@@ -22,11 +24,16 @@ export const FormInput = <T extends FieldValues>({
   error,
   success,
   type,
+  style,
 }: InputProps<T>) => {
   return (
     <div className="relative">
       <input
-        className="bg-transparent border border-gray-border-color rounded-md  h-[56px] w-full  text-tiny text-main-text-color pl-2 placeholder:text-main-text-color hover:border-dark-green-color"
+        className={`bg-transparent border  rounded-md h-[56px] w-full  text-tiny  pl-2 ${
+          style === Style.Dark
+            ? "text-main-text-color placeholder:text-main-text-color hover:border-dark-green-color"
+            : "text-primary-white-color border-primary-white-color"
+        }`}
         placeholder={placeholder}
         {...register(label)}
         type={type}

@@ -110,7 +110,6 @@ a.active {
   align-items: center;
   cursor: pointer;
 
-  /* Забезпечення стилів для стану disabled */
   &.rc-pagination-disabled {
     cursor: not-allowed;
   }

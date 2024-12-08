@@ -9,3 +9,5 @@ export const selectOwn = (state: RootState) => state.words.own.results;
 export const selectOwnTotalPages = (state: RootState) =>
   state.words.own.totalPages;
 export const selectError = (state: RootState) => state.words.error;
+export const selectNotification = (state: RootState) =>
+  state.words.notification;

@@ -47,6 +47,7 @@ const RegisterForm: FC = () => {
               label="name"
               placeholder="Name"
               register={register}
+              style={Style.Dark}
             />
             <FormInput
               success={isEmailValid}
@@ -54,6 +55,7 @@ const RegisterForm: FC = () => {
               label="email"
               placeholder="Email"
               register={register}
+              style={Style.Dark}
             />
             <FormInput
               success={isPasswordValid}
@@ -62,6 +64,7 @@ const RegisterForm: FC = () => {
               placeholder="Password"
               register={register}
               type="password"
+              style={Style.Dark}
             />
           </div>
           <Button type="submit" text="Register" style={Style.Dark} />

@@ -52,6 +52,7 @@ const LoginForm: FC = () => {
               label="email"
               placeholder="Email"
               register={register}
+              style={Style.Dark}
             />
             <FormInput
               success={isPasswordValid}
@@ -60,6 +61,7 @@ const LoginForm: FC = () => {
               placeholder="Password"
               register={register}
               type="password"
+              style={Style.Dark}
             />
           </div>
           <Button type="submit" text="Log in" style={Style.Dark} />

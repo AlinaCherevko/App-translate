@@ -15,20 +15,34 @@ export const WordsPagination: FC<PaginationProps> = ({
 }) => {
   const disablePrevArrow = page === 1;
   const disableNextArrow = page === totalPages;
+  const perPage = 7;
 
   const handlePageClick = (currentPage: number) => {
-    console.log(currentPage);
-    localStorage.setItem("page", currentPage.toString());
     setPage(currentPage);
   };
 
+  const itemRender = (
+    current: number,
+    type: string,
+    originalElement: React.ReactNode
+  ) => {
+    if (type === "page") {
+      return <button>{current}</button>;
+    }
+    if (type === "jump-prev" || type === "jump-next") {
+      return <span>...</span>;
+    }
+    return originalElement;
+  };
+
   return (
-    <div className="paginationContainer">
+    <div className="paginationContainer mt-auto">
       <Pagination
-        //className={style.rcPagination}
         current={page}
-        total={totalPages}
+        total={totalPages * perPage}
         onChange={handlePageClick}
+        defaultPageSize={perPage}
+        itemRender={itemRender}
         prevIcon={
           <BtnIcon
             id="icon-arrow-left"

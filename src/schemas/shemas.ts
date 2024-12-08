@@ -41,3 +41,16 @@ export const schemaLog = yup
       .required("Password is required"),
   })
   .required();
+
+export const schemaEditWord = yup
+  .object({
+    en: yup
+      .string()
+      .matches(/^[a-zA-Z]+$/, "Must be a word")
+      .required("Is required"),
+    ua: yup
+      .string()
+      .matches(/^[а-яА-Я]+$/, "Must be a word")
+      .required("Is required"),
+  })
+  .required();

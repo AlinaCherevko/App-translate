@@ -7,8 +7,9 @@ import {
   IWordsTasks,
   IRecommendedWords,
   IGetAllWordsReq,
-  AddWordToDictionaryReq,
   IWordsResult,
+  IDeleteWord,
+  IEditWord,
 } from "./types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../constants/apiPath";
@@ -111,11 +112,50 @@ export const getUsersTasks = createAsyncThunk<
 //addWordToDictionary
 export const addWordToDictionary = createAsyncThunk<
   IWordsResult,
-  AddWordToDictionaryReq,
+  string,
   { rejectValue: string }
->("words/addWordToDictionary", async ({ id }, thunkAPI) => {
+>("words/addWordToDictionary", async (id, thunkAPI) => {
   try {
     const { data } = await instance.post(api.words.addNewUsersWord(id));
+    return data;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError && error.response) {
+      const errorMessage = error.response.data.message;
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+});
+
+//deleteUsersWord
+export const deleteUsersWord = createAsyncThunk<
+  IDeleteWord,
+  string,
+  { rejectValue: string }
+>("words/deleteUsersWord", async (id, thunkAPI) => {
+  try {
+    const { data } = await instance.delete(api.words.deleteUsersWord(id));
+    return data;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError && error.response) {
+      const errorMessage = error.response.data.message;
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+  }
+});
+
+// editWord
+export const editWord = createAsyncThunk<
+  IWordsResult,
+  IEditWord,
+  { rejectValue: string }
+>("words/editWord", async ({ id, en, ua, category, isIrregular }, thunkAPI) => {
+  try {
+    const { data } = await instance.patch(api.words.editWord(id), {
+      en,
+      ua,
+      category,
+      isIrregular,
+    });
     return data;
   } catch (error: unknown) {
     if (error instanceof AxiosError && error.response) {

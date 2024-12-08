@@ -9,7 +9,7 @@ export const useSelectStyles = (): StylesConfig => {
       ...provided,
       color: "#262626",
       fontWeight: "500",
-      fontSize: "16px",
+      fontSize: isMobile ? "14px" : "16px",
       lineHeight: isMobile ? "18px" : "20px",
     }),
     control: (provided) => ({
@@ -27,7 +27,7 @@ export const useSelectStyles = (): StylesConfig => {
     }),
     singleValue: (provided) => ({
       ...provided,
-      fontSize: isMobile ? "12px" : "14px",
+      fontSize: isMobile ? "14px" : "16px",
       lineHeight: isMobile ? "18px" : "20px",
       fontWeight: "400",
       color: "#262626", // Колір обраного значення

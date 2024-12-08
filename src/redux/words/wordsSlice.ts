@@ -7,6 +7,8 @@ import {
   getWordsStatistics,
   getUsersTasks,
   addWordToDictionary,
+  deleteUsersWord,
+  editWord,
 } from "./wordsOperations";
 
 const initialState: IWordsState = {
@@ -26,13 +28,15 @@ const initialState: IWordsState = {
   categories: [],
   words: [],
   error: "",
+  notification: "",
   isLoading: false,
   totalCount: 0,
 };
 
 const isPending = (state: IWordsState) => {
-  state.isLoading = true;
   state.error = "";
+  state.isLoading = true;
+  state.notification = "";
 };
 
 const isRejected = (
@@ -41,6 +45,7 @@ const isRejected = (
 ) => {
   state.error = action.payload;
   state.isLoading = false;
+  state.notification = "";
 };
 
 export const wordsSlice = createSlice({
@@ -97,6 +102,30 @@ export const wordsSlice = createSlice({
     builder.addCase(addWordToDictionary.rejected, isRejected);
     builder.addCase(addWordToDictionary.fulfilled, (state, { payload }) => {
       state.own.results.push(payload);
+      state.error = "";
+      state.notification = "Word was successfully added to the dictionary";
+      state.isLoading = false;
+    });
+    //deleteWordFromDictionary
+    builder.addCase(deleteUsersWord.pending, isPending);
+    builder.addCase(deleteUsersWord.rejected, isRejected);
+    builder.addCase(deleteUsersWord.fulfilled, (state, { payload }) => {
+      state.own.results = state.own.results.filter(
+        (res) => res._id !== payload.id
+      );
+      state.notification = payload.message;
+      state.error = "";
+      state.isLoading = false;
+    });
+    //editWord
+    builder.addCase(editWord.pending, isPending);
+    builder.addCase(editWord.rejected, isRejected);
+    builder.addCase(editWord.fulfilled, (state, { payload }) => {
+      console.log(payload);
+      state.own.results = state.own.results.map((res) =>
+        res._id === payload._id ? payload : res
+      );
+      state.notification = "Word was successfully updated";
       state.error = "";
       state.isLoading = false;
     });

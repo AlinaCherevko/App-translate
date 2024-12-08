@@ -4,6 +4,7 @@ export interface IWordsState {
   categories: WordCategory[];
   words: IWords[];
   error: string | undefined;
+  notification: string;
   isLoading: boolean;
   totalCount: number;
 }
@@ -31,7 +32,7 @@ export interface IWordsResult {
   _id: string;
   en: string;
   ua: string;
-  category: string;
+  category: WordCategory;
   isIrregular: boolean;
   progress?: number;
   owner?: string;
@@ -63,6 +64,15 @@ export interface IGetAllWordsReq {
   isIrregular?: boolean | string;
 }
 
-export interface AddWordToDictionaryReq {
+export interface IDeleteWord {
   id: string;
+  message: string;
+}
+
+export interface IEditWord {
+  id: string;
+  en: string;
+  ua: string;
+  category: WordCategory;
+  isIrregular: boolean;
 }

@@ -34,6 +34,7 @@ const RecommendPage: FC = () => {
           setKeyword={setKeyword}
           setPage={setPage}
           option={category}
+          currentPage={currentPage}
         />
         <WordsTable results={recommendedWords} currentPage={currentPage} />
         <WordsPagination

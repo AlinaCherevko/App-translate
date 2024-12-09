@@ -24,7 +24,7 @@ export const BtnIcon: FC<MenuProps> = ({
 }) => {
   return (
     <button
-      className="flex gap-2  items-center bg-transparent hover:text-dark-green-color"
+      className="flex gap-2  items-center bg-transparent hover:text-dark-green-color text-mediumSmall tablet:text-tiny"
       type="button"
       onClick={onClick}
     >

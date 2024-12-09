@@ -43,7 +43,6 @@ export const EditWordModal: FC<EditModalProps> = ({
   });
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     if (notification === "") return;
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -67,12 +66,12 @@ export const EditWordModal: FC<EditModalProps> = ({
   };
 
   return (
-    <div className="w-full mobileAdaptive:w-[343px] tablet:w-[628px] rounded-lg bg-dark-green-color px-4 pt-12 pb-12">
+    <div className="w-full mobileAdaptive:w-[343px] tablet:w-[628px] rounded-lg bg-dark-green-color px-4 pt-12 pb-12 tablet:p-[64px]">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-5">
           <div className="flex items-center gap-2 mb-2">
             <img src="../../../../public/ukraine.svg" alt="" />
-            <p className="text-mediumSmall text-primary-white-color">
+            <p className="text-mediumSmall text-primary-white-color tablet:text-tiny">
               Ukranian
             </p>
           </div>
@@ -86,7 +85,9 @@ export const EditWordModal: FC<EditModalProps> = ({
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-2">
             <img src="../../../../public/united kingdom.svg" alt="" />
-            <p className="text-mediumSmall text-primary-white-color">English</p>
+            <p className="text-mediumSmall text-primary-white-color tablet:text-tiny">
+              English
+            </p>
           </div>
           <FormInput
             error={errors.en}

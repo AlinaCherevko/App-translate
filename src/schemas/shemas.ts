@@ -54,3 +54,18 @@ export const schemaEditWord = yup
       .required("Is required"),
   })
   .required();
+
+export const schemaAddWord = yup
+  .object({
+    en: yup
+      .string()
+      .matches(/^[a-zA-Z]+$/, "Must be a word")
+      .required("Is required"),
+    ua: yup
+      .string()
+      .matches(/^[а-яА-Я]+$/, "Must be a word")
+      .required("Is required"),
+    category: yup.string().required("Is required"),
+    isIrregular: yup.boolean().required("Is required"),
+  })
+  .required();

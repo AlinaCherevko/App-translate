@@ -30,6 +30,7 @@ const DictionaryPage: FC = () => {
           setKeyword={setKeyword}
           setPage={setPage}
           option={category}
+          currentPage={currentPage}
         />
         <WordsTable results={ownUsersWords} currentPage={currentPage} />
         <WordsPagination

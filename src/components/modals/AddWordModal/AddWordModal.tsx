@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { Button, FormInput, RadioGroupEl, SelectEl } from "../../index";
 import { Style } from "../../Button/Button";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
@@ -13,7 +13,6 @@ import { createNewWord } from "../../../redux/words/wordsOperations";
 
 type AddWordProps = {
   setIsVisibleAddWordModal: (value: boolean) => void;
-  setPage: (value: number) => void;
 };
 type AddWordValues = {
   en: string;
@@ -24,12 +23,9 @@ type AddWordValues = {
 
 export const AddWordModal: FC<AddWordProps> = ({
   setIsVisibleAddWordModal,
-  setPage,
 }) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const error = useSelector(selector.selectError);
-  const notification = useSelector(selector.selectNotification);
   const categories = useSelector(selector.selectCategories);
   const options = CreateOptionsArray(categories);
 

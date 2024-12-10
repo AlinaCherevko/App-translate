@@ -23,7 +23,7 @@ export const WordsTable: FC<WordTableProps> = ({ results, currentPage }) => {
             <div className="flex items-center justify-between">
               <p>Word</p>
               <img
-                src="../../../public/united kingdom.svg"
+                src="/united kingdom.svg"
                 alt="UK flag"
                 className="hidden tablet:flex"
               />
@@ -33,7 +33,7 @@ export const WordsTable: FC<WordTableProps> = ({ results, currentPage }) => {
             <div className="flex items-center justify-between">
               <p>Translation</p>
               <img
-                src="../../../public/ukraine.svg"
+                src="/ukraine.svg"
                 alt="Ukraine flag"
                 className="hidden tablet:flex"
               />

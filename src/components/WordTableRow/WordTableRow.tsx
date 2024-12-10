@@ -32,7 +32,7 @@ export const WordTableRow: FC<WordTableRowProps> = ({
 
   return (
     <>
-      <Table.Row className="max-h-[54px] tablet:h-[69px] pl-5 text-mediumSmall tablet:text-tiny break-words whitespace-normal max-w-full  mobileAdaptive:w-[343px]">
+      <Table.Row className="h-[54px] tablet:h-[69px] desktop:h-[72px] pl-5 text-mediumSmall tablet:text-tiny break-words whitespace-normal max-w-full  mobileAdaptive:w-[343px]">
         <Table.Cell className=" pl-3 tablet:pl-5 mobileAdaptive:max-w-[90px] break-words whitespace-normal">
           {result.en}
         </Table.Cell>

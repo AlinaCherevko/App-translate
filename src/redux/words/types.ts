@@ -69,10 +69,13 @@ export interface IDeleteWord {
   message: string;
 }
 
-export interface IEditWord {
-  id: string;
+export interface ICreateWord {
   en: string;
   ua: string;
   category: WordCategory;
-  isIrregular: boolean;
+  isIrregular?: boolean;
+}
+
+export interface IEditWord extends ICreateWord {
+  id: string;
 }

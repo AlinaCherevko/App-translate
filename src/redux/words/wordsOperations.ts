@@ -10,6 +10,7 @@ import {
   IWordsResult,
   IDeleteWord,
   IEditWord,
+  ICreateWord,
 } from "./types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "../../constants/apiPath";
@@ -164,3 +165,28 @@ export const editWord = createAsyncThunk<
     }
   }
 });
+
+// createNewWord
+export const createNewWord = createAsyncThunk<
+  IWordsResult,
+  ICreateWord,
+  { rejectValue: string }
+>(
+  "words/createNewWord",
+  async ({ en, ua, category, isIrregular }, thunkAPI) => {
+    try {
+      const { data } = await instance.post(api.words.createNewWord, {
+        en,
+        ua,
+        category,
+        isIrregular,
+      });
+      return data;
+    } catch (error: unknown) {
+      if (error instanceof AxiosError && error.response) {
+        const errorMessage = error.response.data.message;
+        return thunkAPI.rejectWithValue(errorMessage);
+      }
+    }
+  }
+);

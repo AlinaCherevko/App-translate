@@ -2,6 +2,7 @@ import { FC } from "react";
 import Select from "react-select";
 import { useSelectStyles } from "../../hooks/hooks";
 import { Style } from "../Button/Button";
+import { FieldError } from "react-hook-form";
 
 export type Option = { value: string; label: string };
 
@@ -10,15 +11,15 @@ export type ISelect = {
   setPage?: (value: number) => void;
   options: Option[];
   style: Style;
-  label: string;
+  error?: FieldError;
 };
 
 export const SelectEl: FC<ISelect> = ({
   options,
   onChange,
   setPage,
+  error,
   style,
-  label,
 }) => {
   const onSelectChange = (newValue: unknown) => {
     if (newValue && typeof newValue === "object" && "value" in newValue) {
@@ -35,10 +36,8 @@ export const SelectEl: FC<ISelect> = ({
   };
 
   return (
-    <div className="">
-      {label && <label>{label}</label>}
+    <div className="relative">
       <Select
-        className=""
         //isClearable
         onChange={onSelectChange}
         name="type"
@@ -46,6 +45,11 @@ export const SelectEl: FC<ISelect> = ({
         placeholder="Categories"
         styles={useSelectStyles(style)}
       />
+      {error && (
+        <p className="absolute text-lightSmall text-red-error-color tablet:text-lightSmall">
+          {error.message}
+        </p>
+      )}
     </div>
   );
 };

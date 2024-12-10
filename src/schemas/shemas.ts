@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { WordCategory } from "../redux/words/types";
 
 export const schemaReg = yup
   .object({
@@ -46,11 +47,17 @@ export const schemaEditWord = yup
   .object({
     en: yup
       .string()
-      .matches(/^[a-zA-Z]+$/, "Must be a word")
+      .matches(
+        /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/,
+        "Must be a word in english"
+      )
       .required("Is required"),
     ua: yup
       .string()
-      .matches(/^[а-яА-Я]+$/, "Must be a word")
+      .matches(
+        /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u,
+        "Must be a word in ukranian"
+      )
       .required("Is required"),
   })
   .required();
@@ -59,13 +66,19 @@ export const schemaAddWord = yup
   .object({
     en: yup
       .string()
-      .matches(/^[a-zA-Z]+$/, "Must be a word")
+      .matches(
+        /\b[A-Za-z'-]+(?:\s+[A-Za-z'-]+)*\b/,
+        "Must be a word in english"
+      )
       .required("Is required"),
     ua: yup
       .string()
-      .matches(/^[а-яА-Я]+$/, "Must be a word")
+      .matches(
+        /^(?![A-Za-z])[А-ЯІЄЇҐґа-яієїʼ\s]+$/u,
+        "Must be a word in ukranian"
+      )
       .required("Is required"),
-    category: yup.string().required("Is required"),
-    isIrregular: yup.boolean().required("Is required"),
+    category: yup.mixed<WordCategory>().required("Category is required"),
+    isIrregular: yup.boolean(),
   })
   .required();

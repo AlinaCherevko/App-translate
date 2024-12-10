@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as selector from "../../redux/words/wordsSelectors";
 import { Dashboard, WordsPagination, WordsTable } from "../../components";
@@ -11,15 +11,29 @@ const RecommendPage: FC = () => {
   const error = useSelector(selector.selectError);
   const recommendedWords = useSelector(selector.selectResults);
   const totalPages = useSelector(selector.selectTotalPages);
-
+  const notification = useSelector(selector.selectNotification);
   const [isIrregular, setIsIrregular] = useState<boolean>(false);
   const [category, setCategory] = useState<string>("");
   const [keyword, setKeyword] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const currentPage = "RecommendPage";
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     if (error) toast.error(error);
+    if (notification === "") return;
+    if (notification !== "") toast.success(notification);
+  }, [notification, error]);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     if (category === "verb")
       dispatch(getAllWords({ keyword, category, page, isIrregular }));
     else dispatch(getAllWords({ keyword, category, page, isIrregular: "" }));
@@ -36,7 +50,9 @@ const RecommendPage: FC = () => {
           option={category}
           currentPage={currentPage}
         />
-        <WordsTable results={recommendedWords} currentPage={currentPage} />
+        <div className="rounded-md h-[432px] tablet:h-[552px] desktop:h-[576px] overflow-y-hidden  max-w-full mobileAdaptive:w-full">
+          <WordsTable results={recommendedWords} currentPage={currentPage} />
+        </div>
         <WordsPagination
           totalPages={totalPages}
           setPage={setPage}

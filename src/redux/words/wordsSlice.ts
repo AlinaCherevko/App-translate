@@ -9,6 +9,7 @@ import {
   addWordToDictionary,
   deleteUsersWord,
   editWord,
+  createNewWord,
 } from "./wordsOperations";
 
 const initialState: IWordsState = {
@@ -126,6 +127,16 @@ export const wordsSlice = createSlice({
         res._id === payload._id ? payload : res
       );
       state.notification = "Word was successfully updated";
+      state.error = "";
+      state.isLoading = false;
+    });
+    //createNewWord
+    builder.addCase(createNewWord.pending, isPending);
+    builder.addCase(createNewWord.rejected, isRejected);
+    builder.addCase(createNewWord.fulfilled, (state, { payload }) => {
+      console.log(payload);
+      state.own.results.push(payload);
+      state.notification = "Word was successfully created";
       state.error = "";
       state.isLoading = false;
     });

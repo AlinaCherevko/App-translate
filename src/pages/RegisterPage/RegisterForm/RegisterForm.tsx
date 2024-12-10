@@ -37,7 +37,7 @@ const RegisterForm: FC = () => {
     <>
       <SectionForm
         title="Register"
-        text="To start using our services, please fill out the registration form below. All fields are mandatory "
+        text="To start using our services, please fill out the registration form below. "
       >
         <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
           <div className="flex flex-col gap-4 mb-8 tablet:gap-5">

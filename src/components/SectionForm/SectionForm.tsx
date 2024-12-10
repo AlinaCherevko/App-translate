@@ -9,7 +9,7 @@ export const SectionForm: FC<SectionFormProps> = ({
   children,
 }) => {
   return (
-    <div className="bg-transparent tablet:bg-light-green-bg tablet:h-auto tablet:rounded-lg tablet:px-[64px] tablet:py-[48px] desktop:w-[628px]">
+    <div className="desktop:h-[528px] bg-transparent tablet:bg-light-green-bg tablet:h-auto tablet:rounded-lg tablet:px-[64px] tablet:py-[48px] desktop:w-[628px]">
       <h2 className="text-medium font-bold mb-4">{title}</h2>
       <p className="text-tiny mb-4">{text}</p>
       {children}

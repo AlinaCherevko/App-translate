@@ -106,7 +106,10 @@ export const Dashboard: FC<DashboardType> = ({
       </div>
       {isVisibleAddWordModal && (
         <Modal onClose={() => setIsVisibleAddWordModal(false)}>
-          <AddWordModal setIsVisibleAddWordModal={setIsVisibleAddWordModal} />
+          <AddWordModal
+            setPage={setPage}
+            setIsVisibleAddWordModal={setIsVisibleAddWordModal}
+          />
         </Modal>
       )}
     </>

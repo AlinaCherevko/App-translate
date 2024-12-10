@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
+import { FC, useEffect } from "react";
 import { Button, FormInput, RadioGroupEl, SelectEl } from "../../index";
 import { Style } from "../../Button/Button";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AppDispatch } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,41 +9,69 @@ import { schemaAddWord } from "../../../schemas/shemas";
 import { WordCategory } from "../../../redux/words/types";
 import * as selector from "../../../redux/words/wordsSelectors";
 import { CreateOptionsArray } from "../../../utils/utils";
+import { createNewWord } from "../../../redux/words/wordsOperations";
 
 type AddWordProps = {
   setIsVisibleAddWordModal: (value: boolean) => void;
+  setPage: (value: number) => void;
 };
 type AddWordValues = {
   en: string;
   ua: string;
   category: WordCategory;
-  isIrregular: boolean;
+  isIrregular?: boolean;
 };
 
 export const AddWordModal: FC<AddWordProps> = ({
   setIsVisibleAddWordModal,
+  setPage,
 }) => {
-  const [category, setCategory] = useState("");
-  const [isIrregular, setIsIrregular] = useState<boolean>(false);
-
   const dispatch: AppDispatch = useDispatch();
+
+  const error = useSelector(selector.selectError);
+  const notification = useSelector(selector.selectNotification);
   const categories = useSelector(selector.selectCategories);
   const options = CreateOptionsArray(categories);
-  console.log(category);
 
   const {
     register,
     handleSubmit,
+    control,
+    getValues,
     formState: { errors },
+    watch,
     reset,
   } = useForm<AddWordValues>({
     resolver: yupResolver(schemaAddWord),
     mode: "onSubmit",
+    defaultValues: { isIrregular: false },
   });
 
+  const value = getValues("category");
+  console.log(value);
+
+  const type = getValues("isIrregular");
+  console.log(type);
+
+  const selectedCategory = watch("category");
+  const isIrregular = watch("isIrregular");
+
   const onSubmit: SubmitHandler<AddWordValues> = (data) => {
-    console.log(data);
-    //dispatch();
+    const formData =
+      selectedCategory === "verb"
+        ? {
+            en: data.en,
+            ua: data.ua,
+            category: selectedCategory,
+            isIrregular: isIrregular,
+          }
+        : {
+            en: data.en,
+            ua: data.ua,
+            category: selectedCategory,
+          };
+
+    dispatch(createNewWord(formData));
     reset();
     setIsVisibleAddWordModal(false);
   };
@@ -59,18 +87,30 @@ export const AddWordModal: FC<AddWordProps> = ({
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-2 mb-6">
-          <SelectEl
-            options={options}
-            onChange={setCategory}
-            style={Style.Light}
-            label="category"
+          <Controller
+            name="category"
+            control={control}
+            render={({ field }) => (
+              <SelectEl
+                options={options}
+                onChange={field.onChange}
+                error={errors.category}
+                style={Style.Light}
+              />
+            )}
           />
           <div className="h-[32px]">
-            {category === "verb" && (
+            {selectedCategory === "verb" && (
               <>
-                <RadioGroupEl
-                  style={Style.Light}
-                  setIsIrregular={setIsIrregular}
+                <Controller
+                  name="isIrregular"
+                  control={control}
+                  render={({ field }) => (
+                    <RadioGroupEl
+                      setIsIrregular={field.onChange}
+                      style={Style.Light}
+                    />
+                  )}
                 />
                 {isIrregular && (
                   <p className="mt-2 text-primary-white-color text-lightSmall">

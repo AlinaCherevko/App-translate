@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Pagination from "rc-pagination";
-import { BtnIcon } from "../BtnIcon/BtnIcon";
+import { BtnIcon } from "../index";
 
 type PaginationProps = {
   setPage: (props: number) => void;
@@ -36,7 +36,7 @@ export const WordsPagination: FC<PaginationProps> = ({
   };
 
   return (
-    <div className="paginationContainer mt-auto">
+    <div className="paginationContainer">
       <Pagination
         current={page}
         total={totalPages * perPage}

@@ -30,7 +30,7 @@
   font-style: normal;
 }
 :root {
-  @apply font-maxPaw bg-primary-white-color;
+  @apply font-maxPaw bg-secondary-white;
 }
 body,
 html {
@@ -87,7 +87,7 @@ a.active {
 
 .paginationContainer {
   display: flex;
-  padding-top: 32px;
+  margin-top: 32px;
   justify-content: center;
   align-items: center;
   gap: 10px;
